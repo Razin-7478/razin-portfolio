@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohammad Razin Masud — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #07060d;
+    --bg2: #0c0b14;
+    --bg3: #12111c;
+    --surface: rgba(255,255,255,0.03);
+    --surface2: rgba(255,255,255,0.05);
+    --purple: #8b5cf6;
+    --purple-soft: rgba(139,92,246,0.15);
+    --pink: #e879f9;
+    --pink-soft: rgba(232,121,249,0.12);
+    --blue: #818cf8;
+    --text: #f5f3ff;
+    --text-secondary: #c4b5fd;
+    --muted: #9ca3af;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(139,92,246,0.4);
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'Inter', system-ui, sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+
+  /* Background Video */
+  .bg-video {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    opacity: 0.35;
+    pointer-events: none;
+  }
+  .bg-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: linear-gradient(180deg, rgba(7,6,13,0.55) 0%, rgba(7,6,13,0.75) 50%, rgba(7,6,13,0.9) 100%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.65;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(100px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.45;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(139,92,246,0.35), transparent 70%);
+    top: -10%; right: -8%;
+  }
+  .orb-2 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(232,121,249,0.25), transparent 70%);
+    bottom: 20%; left: -10%;
+  }
+  .orb-3 {
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(129,140,248,0.2), transparent 70%);
+    top: 50%; left: 40%;
+  }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.1rem 5vw;
+    background: rgba(7,6,13,0.75);
+    backdrop-filter: blur(20px) saturate(1.5);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+  .nav-logo span { color: var(--pink); }
+  .nav-links { display: flex; gap: 2.2rem; list-style: none; align-items: center; }
+  .nav-links a {
+    font-size: 0.78rem; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    transition: color 0.25s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    padding: 0.55rem 1.3rem !important;
+    background: linear-gradient(135deg, var(--purple), var(--pink));
+    color: #fff !important;
+    border-radius: 100px;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.04em;
+  }
+  .nav-cta:hover { opacity: 0.9; color: #fff !important; }
+
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 3rem;
+    align-items: center;
+    padding: 8rem 5vw 5rem;
+    position: relative;
+    z-index: 1;
+  }
+  .hero-label {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 1.6rem; font-weight: 500;
+  }
+  .hero-label::before {
+    content: ''; display: block;
+    width: 24px; height: 1px; background: var(--pink);
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.8rem, 5.5vw, 4.6rem);
+    font-weight: 500; line-height: 1.12;
+    letter-spacing: -0.02em;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    max-width: 480px;
+    font-size: 1.05rem; color: var(--muted);
+    margin-bottom: 2.4rem; line-height: 1.8; font-weight: 300;
+  }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+  .btn-primary {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 0.9rem 1.9rem;
+    background: linear-gradient(135deg, var(--purple), #a78bfa);
+    color: #fff;
+    font-family: var(--font-body); font-weight: 500; font-size: 0.88rem;
+    text-decoration: none; border-radius: 100px;
+    transition: transform 0.2s, box-shadow 0.25s;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(139,92,246,0.35);
+  }
+  .btn-outline {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 0.9rem 1.9rem;
+    border: 1px solid var(--border); color: var(--text);
+    font-family: var(--font-body); font-weight: 500; font-size: 0.88rem;
+    text-decoration: none; border-radius: 100px;
+    transition: border-color 0.25s, background 0.25s, transform 0.2s;
+  }
+  .btn-outline:hover {
+    border-color: var(--border-hover);
+    background: var(--surface);
+    transform: translateY(-2px);
+  }
+
+  .hero-meta {
+    display: flex; gap: 2.5rem; flex-wrap: wrap;
+  }
+  .meta-label {
+    font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 4px;
+  }
+  .meta-value {
+    font-size: 0.95rem; color: var(--text-secondary); font-weight: 500;
+  }
+
+  .hero-visual {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-glow {
+    position: absolute;
+    width: 380px; height: 380px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(139,92,246,0.35) 0%, rgba(232,121,249,0.15) 40%, transparent 70%);
+    filter: blur(40px);
+  }
+  .hero-card {
+    position: relative;
+    background: linear-gradient(145deg, rgba(30,20,50,0.7), rgba(15,10,30,0.9));
+    border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 24px;
+    padding: 2rem;
+    backdrop-filter: blur(12px);
+    max-width: 320px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.4);
+  }
+  .hero-card-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    margin-bottom: 0.6rem;
+    background: linear-gradient(135deg, #fff, var(--pink));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-card p {
+    font-size: 0.88rem;
+    color: var(--muted);
+    line-height: 1.7;
+    margin-bottom: 1.2rem;
+  }
+  .hero-card-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+  }
+  .hero-card-tag {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    background: var(--purple-soft);
+    color: var(--text-secondary);
+    border-radius: 100px;
+  }
+
+  .float-card {
+    position: absolute;
+    background: rgba(20,15,35,0.9);
+    border: 1px solid rgba(139,92,246,0.25);
+    border-radius: 14px;
+    padding: 0.85rem 1.15rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+    z-index: 5;
+  }
+  .float-card-1 { top: -12px; right: -28px; }
+  .float-card-2 { bottom: -8px; left: -36px; }
+  .float-label {
+    font-size: 0.65rem; letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 3px;
+  }
+  .float-value {
+    font-size: 0.9rem; font-weight: 500; color: var(--text);
+  }
+
+  section { padding: 6rem 5vw; position: relative; z-index: 1; }
+  .section-label {
+    display: flex; align-items: center; gap: 12px;
+    font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 1rem; font-weight: 500;
+  }
+  .section-label span {
+    font-size: 0.65rem;
+    color: #fff; background: linear-gradient(135deg, var(--purple), var(--pink));
+    padding: 3px 8px; border-radius: 6px; font-weight: 600;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 500; letter-spacing: -0.02em;
+    line-height: 1.2; margin-bottom: 0.8rem;
+  }
+  .section-title em {
+    font-style: italic;
+    background: linear-gradient(135deg, var(--pink), var(--purple));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .section-intro {
+    max-width: 540px;
+    color: var(--muted); font-size: 1rem;
+    margin-bottom: 3rem; line-height: 1.75; font-weight: 300;
+  }
+
+  .about-grid {
+    display: grid; grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem; align-items: start;
+  }
+  .about-text p {
+    color: var(--muted); font-size: 1.02rem;
+    margin-bottom: 1.3rem; line-height: 1.85; font-weight: 300;
+  }
+  .about-text strong { color: var(--text); font-weight: 500; }
+
+  .info-cards {
+    display: flex; flex-direction: column; gap: 0.9rem;
+  }
+  .info-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.3rem 1.4rem;
+    transition: border-color 0.3s, background 0.3s, transform 0.25s;
+  }
+  .info-card:hover {
+    border-color: var(--border-hover);
+    background: var(--surface2);
+    transform: translateY(-2px);
+  }
+  .info-card-label {
+    font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 5px; font-weight: 500;
+  }
+  .info-card-value {
+    font-size: 0.98rem; color: var(--text); font-weight: 500;
+  }
+  .info-card-sub {
+    font-size: 0.82rem; color: var(--muted); margin-top: 3px;
+  }
+
+  .projects-grid {
+    display: grid; grid-template-columns: 1fr;
+    gap: 1.8rem;
+  }
+  .project-card {
+    background: linear-gradient(145deg, rgba(20,15,35,0.6), rgba(12,10,22,0.9));
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    overflow: hidden;
+    display: grid; grid-template-columns: 1fr 1.35fr;
+    transition: border-color 0.35s, transform 0.35s, box-shadow 0.35s;
+  }
+  .project-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(139,92,246,0.12);
+  }
+  .project-visual {
+    min-height: 260px;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+    overflow: hidden;
+    background: #0a0814;
+  }
+  .project-visual img {
+    width: 100%; height: 100%; object-fit: cover;
+    position: absolute; inset: 0;
+  }
+  .project-body { padding: 2.2rem 2.4rem; display: flex; flex-direction: column; justify-content: center; }
+  .project-type {
+    font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--pink); margin-bottom: 8px; font-weight: 500;
+  }
+  .project-name {
+    font-family: var(--font-display); font-size: 1.6rem; font-weight: 500;
+    letter-spacing: -0.015em; margin-bottom: 0.8rem;
+  }
+  .project-desc {
+    font-size: 0.95rem; color: var(--muted);
+    line-height: 1.75; margin-bottom: 1.4rem; font-weight: 300;
+  }
+  .project-tech { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 1.4rem; }
+  .tech-tag {
+    font-size: 0.72rem; padding: 5px 12px;
+    background: var(--purple-soft); color: var(--text-secondary);
+    border-radius: 100px; font-weight: 500;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.2rem;
+    margin-top: 2.5rem;
+  }
+  .service-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 1.8rem 1.6rem;
+    transition: border-color 0.3s, transform 0.25s, background 0.3s;
+  }
+  .service-card:hover {
+    border-color: var(--border-hover);
+    background: var(--surface2);
+    transform: translateY(-3px);
+  }
+  .service-icon {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--purple-soft), var(--pink-soft));
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.1rem;
+    font-size: 1.2rem;
+  }
+  .service-name {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+  }
+  .service-desc {
+    font-size: 0.9rem;
+    color: var(--muted);
+    line-height: 1.65;
+  }
+
+  .skills-section {
+    padding: 4.5rem 5vw;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .skills-label {
+    font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 1.8rem; text-align: center; font-weight: 500;
+  }
+  .skills-pills {
+    display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;
+    max-width: 820px; margin: 0 auto;
+  }
+  .skill-pill {
+    font-size: 0.85rem; font-weight: 500;
+    padding: 9px 18px;
+    border: 1px solid var(--border); border-radius: 100px;
+    color: var(--text-secondary);
+    transition: color 0.25s, border-color 0.25s, background 0.25s;
+  }
+  .skill-pill:hover {
+    color: var(--text);
+    border-color: var(--border-hover);
+    background: var(--surface);
+  }
+
+  .contact-wrap {
+    max-width: 640px;
+    background: linear-gradient(145deg, rgba(30,20,50,0.5), rgba(12,10,22,0.8));
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 2.8rem;
+    margin-top: 2.5rem;
+  }
+  .contact-wrap p {
+    color: var(--muted); margin-bottom: 2rem;
+    line-height: 1.8; font-weight: 300;
+  }
+  .contact-links { display: flex; gap: 0.7rem; flex-wrap: nowrap; overflow-x: auto; }
+  .contact-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 0.7rem 1.15rem;
+    border: 1px solid var(--border); border-radius: 100px;
+    font-size: 0.85rem; font-weight: 500;
+    color: var(--text); text-decoration: none;
+    transition: border-color 0.25s, background 0.25s, transform 0.2s;
+  }
+  .contact-link:hover {
+    border-color: var(--border-hover);
+    background: var(--surface);
+    transform: translateY(-2px);
+  }
+
+  footer {
+    padding: 2.2rem 5vw;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem; color: var(--muted);
+    position: relative; z-index: 1;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-label { animation: fadeUp 0.7s ease both; }
+  .hero h1 { animation: fadeUp 0.7s 0.08s ease both; }
+  .hero-sub { animation: fadeUp 0.7s 0.16s ease both; }
+  .hero-ctas { animation: fadeUp 0.7s 0.24s ease both; }
+  .hero-meta { animation: fadeUp 0.7s 0.32s ease both; }
+  .hero-visual { animation: fadeUp 0.8s 0.2s ease both; }
+
+  @media (max-width: 1100px) {
+    .float-card { display: none; }
+  }
+  @media (max-width: 980px) {
+    .hero { grid-template-columns: 1fr; padding-top: 7rem; }
+    .hero-visual { order: -1; margin-bottom: 1rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-visual { min-height: 200px; }
+  }
+  @media (max-width: 640px) {
+    nav { padding: 1rem 5vw; }
+    .nav-links { display: none; }
+    .hero { padding: 6.5rem 5vw 3.5rem; }
+    .hero-meta { gap: 1.5rem; }
+    section { padding: 4.5rem 5vw; }
+    .contact-wrap { padding: 2rem; }
+    footer { flex-direction: column; gap: 0.4rem; text-align: center; }
+    .float-card { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<video class="bg-video" autoplay muted loop playsinline>
+  <source src="videos/bg.mp4" type="video/mp4">
+</video>
+<div class="bg-overlay"></div>
+
+
+<div class="orb orb-1"></div>
+<div class="orb orb-2"></div>
+<div class="orb orb-3"></div>
+
+<nav>
+  <a href="#" class="nav-logo">Portfolio<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Work</a></li>
+    <li><a href="#venture">Venture</a></li>
+    <li><a href="#freelance">Services</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Connect</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <div>
+    <div class="hero-label">Open to opportunities</div>
+    <h1>Building systems<br>&amp; experiences<br>that feel like <em>the future.</em></h1>
+    <p class="hero-sub">
+      BSc CSE student at ULAB. Passionate about digital systems, competitive programming, and thoughtful technology. Founder of TechSubFlix.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">View My Work →</a>
+      <a href="#contact" class="btn-outline">Get in Touch</a>
+    </div>
+    <div class="hero-meta">
+      <div class="meta-item">
+        <div class="meta-label">Education</div>
+        <div class="meta-value">BSc CSE · ULAB</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">College</div>
+        <div class="meta-value">DRMC</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Location</div>
+        <div class="meta-value">Dhaka, Bangladesh</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <div class="hero-glow"></div>
+    <div class="float-card float-card-1">
+      <div class="float-label">Focus</div>
+      <div class="float-value">Digital Systems</div>
+    </div>
+    <div class="float-card float-card-2">
+      <div class="float-label">Also</div>
+      <div class="float-value">Competitive Programming</div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-title">Mohammad Razin Masud</div>
+      <p>CSE undergrad · Systems thinker · Building products people actually use.</p>
+      <div class="hero-card-tags">
+        <span class="hero-card-tag">ULAB</span>
+        <span class="hero-card-tag">DRMC</span>
+        <span class="hero-card-tag">TechSubFlix</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="section-label"><span>01</span> About</div>
+  <h2 class="section-title">Curious mind.<br>Building with <em>purpose.</em></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>
+        I'm a <strong>Computer Science & Engineering student at the University of Liberal Arts Bangladesh (ULAB)</strong>, with a foundation shaped at Dhaka Residential Model College (DRMC). I care deeply about how systems work — from the logic of digital circuits to the elegance of well-structured code.
+      </p>
+      <p>
+        My interests sit at the intersection of <strong>digital systems and competitive programming</strong>. I enjoy the precision of hardware simulation and the problem-solving intensity of algorithms. Outside academics, I run <strong>TechSubFlix</strong>, where I make premium streaming simpler for people in Bangladesh.
+      </p>
+      <p>
+        I believe good engineering is quiet, reliable, and human-centered. Whether simulating a home automation system or solving a hard programming problem, I aim for clarity and correctness.
+      </p>
+    </div>
+    <div class="info-cards">
+      <div class="info-card">
+        <div class="info-card-label">Current Focus</div>
+        <div class="info-card-value">Digital Systems & Competitive Programming</div>
+        <div class="info-card-sub">Hardware simulation · Algorithms · Systems thinking</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Education</div>
+        <div class="info-card-value">BSc in Computer Science & Engineering</div>
+        <div class="info-card-sub">University of Liberal Arts Bangladesh (ULAB)</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Background</div>
+        <div class="info-card-value">Dhaka Residential Model College</div>
+        <div class="info-card-sub">DRMC Islamic Cultural Club</div>
+      </div>
+      <div class="info-card">
+        <div class="info-card-label">Venture</div>
+        <div class="info-card-value">TechSubFlix</div>
+        <div class="info-card-sub">Founder · Streaming subscriptions made simple</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects" style="background: var(--bg2);">
+  <div class="section-label"><span>02</span> Selected Work</div>
+  <h2 class="section-title">Things I've designed<br>&amp; <em>built.</em></h2>
+  <p class="section-intro">A collection of technical projects focused on systems, automation, simulation, and practical software.</p>
+
+  <div class="projects-grid">
+
+    <article class="project-card">
+      <div class="project-visual">
+        <img src="images/home-automation.jpg" alt="Home Automation Security System" onerror="this.style.display='none'">
+      </div>
+      <div class="project-body">
+        <div class="project-type">Digital Systems · Simulation</div>
+        <h3 class="project-name">Home Automation & Security System</h3>
+        <p class="project-desc">
+          A Multisim-based design that models smart monitoring and control of household devices. Demonstrates automated security, sensor-based detection, and appliance management through circuit simulation.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">NI Multisim</span>
+          <span class="tech-tag">Digital Systems</span>
+          <span class="tech-tag">Sensor Logic</span>
+          <span class="tech-tag">Circuit Design</span>
+        </div>
+        <div style="margin-top:0.5rem;">
+          <a href="https://github.com/Razin-7478/Home-Automation-Security-System-NI-Multisim-Design" target="_blank" rel="noopener" class="btn-outline" style="font-size:0.78rem; padding:0.55rem 1.2rem;">View on GitHub →</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <div class="project-visual">
+        <img src="images/smart-home.jpg" alt="Smart Home Automation System" onerror="this.style.display='none'">
+      </div>
+      <div class="project-body">
+        <div class="project-type">Embedded Systems · IoT</div>
+        <h3 class="project-name">Smart Home Automation System</h3>
+        <p class="project-desc">
+          Built on ESP32 with RFID-based occupancy tracking, automatic control of lights and fan via motion, light and temperature sensors, MQ-2 gas/smoke safety alarm, and OLED display integration.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">ESP32</span>
+          <span class="tech-tag">C++</span>
+          <span class="tech-tag">RFID</span>
+          <span class="tech-tag">Sensors</span>
+          <span class="tech-tag">OLED</span>
+        </div>
+        <div style="margin-top:0.5rem;">
+          <a href="https://github.com/Razin-7478/Smart-Home-Automation-System-with-RFID-Authentication-Multi-Sensor-Integration-and-Gas-Safety" target="_blank" rel="noopener" class="btn-outline" style="font-size:0.78rem; padding:0.55rem 1.2rem;">View on GitHub →</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <div class="project-visual">
+        <img src="images/cloud-sim.jpg" alt="Cloud Resource Allocation Simulator" onerror="this.style.display='none'">
+      </div>
+      <div class="project-body">
+        <div class="project-type">Systems · Simulation</div>
+        <h3 class="project-name">Cloud Resource Allocation Simulator</h3>
+        <p class="project-desc">
+          Simulator in C with GTK3 that models CPU scheduling (FCFS, SJF, Round Robin, Priority), Banker's Algorithm for deadlock avoidance, and memory allocation strategies (First Fit / Best Fit).
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">C</span>
+          <span class="tech-tag">GTK3</span>
+          <span class="tech-tag">Scheduling</span>
+          <span class="tech-tag">Banker's Algorithm</span>
+        </div>
+        <div style="margin-top:0.5rem;">
+          <a href="https://github.com/Razin-7478/Cloud-Resource-Allocation-Simulator" target="_blank" rel="noopener" class="btn-outline" style="font-size:0.78rem; padding:0.55rem 1.2rem;">View on GitHub →</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <div class="project-visual">
+        <img src="images/dapms.jpg" alt="Digital Academic Performance Management" onerror="this.style.display='none'">
+      </div>
+      <div class="project-body">
+        <div class="project-type">Web · Academic System</div>
+        <h3 class="project-name">Digital Academic Performance Management</h3>
+        <p class="project-desc">
+          Web-based academic performance management system for managing courses, students, teachers, assessments, and results. Built with Flask and SQLite.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Flask</span>
+          <span class="tech-tag">Python</span>
+          <span class="tech-tag">SQLite</span>
+          <span class="tech-tag">HTML</span>
+        </div>
+        <div style="margin-top:0.5rem;">
+          <a href="https://github.com/Razin-7478/Digital-Academic-Performance-Management-System" target="_blank" rel="noopener" class="btn-outline" style="font-size:0.78rem; padding:0.55rem 1.2rem;">View on GitHub →</a>
+        </div>
+      </div>
+    </article>
+
+    <article class="project-card">
+      <div class="project-visual">
+        <img src="images/hotel.jpg" alt="Hotel Room Booking System" onerror="this.style.display='none'">
+      </div>
+      <div class="project-body">
+        <div class="project-type">Console Application</div>
+        <h3 class="project-name">Hotel Room Booking System</h3>
+        <p class="project-desc">
+          Console-based Hotel Room Booking System written in C. Handles room management, booking, and basic customer operations through a clean terminal interface.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">C</span>
+          <span class="tech-tag">Console</span>
+          <span class="tech-tag">File Handling</span>
+        </div>
+        <div style="margin-top:0.5rem;">
+          <a href="https://github.com/Razin-7478/Hotel-Room-Booking-System" target="_blank" rel="noopener" class="btn-outline" style="font-size:0.78rem; padding:0.55rem 1.2rem;">View on GitHub →</a>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="venture">
+  <div class="section-label"><span>03</span> Venture</div>
+  <h2 class="section-title">Building something<br>people <em>actually use.</em></h2>
+  <p class="section-intro">I founded and run TechSubFlix — a simple way for people in Bangladesh to get premium streaming subscriptions without the usual hassle.</p>
+
+  <div class="projects-grid">
+    <article class="project-card">
+      <div class="project-visual" style="background: #0a0a0f; padding: 2.5rem;">
+        <img src="images/techsubflix-logo.png" alt="TechSubFlix Logo" style="position:relative; width:auto; height:auto; max-width:85%; max-height:130px; object-fit:contain;">
+      </div>
+      <div class="project-body">
+        <div class="project-type" style="color: #c4b5fd;">Business · Streaming Platform</div>
+        <h3 class="project-name">TechSubFlix</h3>
+        <p class="project-desc">
+          A subscription service that makes premium digital entertainment simple. Users can get Netflix, Amazon Prime, Disney+, HBO Max, Crunchyroll and more — with personal support and fast activation. Built to remove complexity from the buying experience.
+        </p>
+        <div class="project-tech">
+          <span class="tech-tag">Founder</span>
+          <span class="tech-tag">Product</span>
+          <span class="tech-tag">Operations</span>
+          <span class="tech-tag">Customer Experience</span>
+        </div>
+        <div>
+          <a href="https://techsubflix.web.app/" target="_blank" rel="noopener" class="btn-primary" style="font-size: 0.82rem; padding: 0.7rem 1.5rem;">
+            Visit TechSubFlix →
+          </a>
+        </div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="freelance" style="background: var(--bg2);">
+  <div class="section-label"><span>04</span> Services</div>
+  <h2 class="section-title">Available for<br><em>document & office</em> work.</h2>
+  <p class="section-intro">Alongside studies and TechSubFlix, I take on freelance projects involving Microsoft Office tools. Clean, accurate, and delivered on time.</p>
+
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">📄</div>
+      <div class="service-name">Microsoft Word</div>
+      <p class="service-desc">Professional documents, reports, and clean formatting with attention to structure and readability.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <div class="service-name">Microsoft Excel</div>
+      <p class="service-desc">Spreadsheets, tables, formulas, data organization and basic analysis for practical use.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📑</div>
+      <div class="service-name">Microsoft PowerPoint</div>
+      <p class="service-desc">Clear, well-structured presentations with visual hierarchy and professional polish.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">✦</div>
+      <div class="service-name">Open for Projects</div>
+      <p class="service-desc">Currently available for freelance MS Office work. Reach out to discuss your needs.</p>
+    </div>
+  </div>
+</section>
+
+<section id="skills" class="skills-section">
+  <div class="skills-label">Areas of strength</div>
+  <div class="skills-pills">
+    <span class="skill-pill">Digital Systems</span>
+    <span class="skill-pill">Competitive Programming</span>
+    <span class="skill-pill">Circuit Simulation</span>
+    <span class="skill-pill">NI Multisim</span>
+    <span class="skill-pill">Problem Solving</span>
+    <span class="skill-pill">C / C++</span>
+    <span class="skill-pill">Python</span>
+    <span class="skill-pill">Java</span>
+    <span class="skill-pill">MS Word</span>
+    <span class="skill-pill">MS Excel</span>
+    <span class="skill-pill">MS PowerPoint</span>
+    <span class="skill-pill">Git & GitHub</span>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="section-label"><span>05</span> Contact</div>
+  <h2 class="section-title">Let's build something<br><em>meaningful</em> together.</h2>
+  <div class="contact-wrap">
+    <p>
+      Open to conversations about digital systems, programming, TechSubFlix, freelance document work, internship opportunities, or collaborations. Feel free to reach out.
+    </p>
+    <div class="contact-links">
+      <a href="mailto:razinmasud7478@gmail.com?subject=Hello%20from%20your%20Portfolio" class="contact-link">
+        ✉ Email
+      </a>
+      <a href="https://github.com/Razin-7478" target="_blank" rel="noopener" class="contact-link">
+        ⌥ GitHub
+      </a>
+      <a href="https://www.linkedin.com/in/mohammad-razin-masud-38a869432/" target="_blank" rel="noopener" class="contact-link">
+        ↗ LinkedIn
+      </a>
+      <a href="https://techsubflix.web.app/" target="_blank" rel="noopener" class="contact-link">
+        ◆ TechSubFlix
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>Mohammad Razin Masud · ULAB CSE</span>
+  <span>© 2026</span>
+</footer>
+
+</body>
+</html>
