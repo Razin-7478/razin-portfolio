@@ -3,7 +3,7 @@
 A modern, dark-themed personal portfolio website built with pure HTML, CSS, and a touch of JavaScript.
 
 **Live Demo:** [View Portfolio](https://razin-7478.github.io/razin-portfolio/)  
-*(Enable GitHub Pages if not already active)*
+
 
 ---
 
