@@ -94,5 +94,3 @@ razin-portfolio/
 - Feel free to reach out for collaboration or opportunities!
 
 ---
-
-Made with ❤️ by **Mohammad Razin Masud**
